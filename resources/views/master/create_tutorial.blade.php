@@ -1,0 +1,80 @@
+@extends('master.layouts.layout')
+
+@section('css')
+
+@endsection
+
+@section('content')
+
+@include('message')
+
+<div class="page-title">
+	<div>
+		<?php $segment1 = Request::segment(2); ?>
+        <h1><i class="fa fa-file-o"></i> {{ str_replace('-', ' ', ucfirst($segment1)) }}</h1>
+	</div>
+</div>
+
+<div id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+		<i class="fa fa-home"></i>
+		<a href="{{ url('/user/dashboard') }}">Home</a>
+		<span class="divider"><i class="fa fa-angle-right"></i></span>
+		</li>
+		<li class="active">{{ str_replace('-', ' ', ucfirst($segment1)) }}</li>
+	</ul>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+
+<div class="box box-black">
+<div class="box-title">
+<h3><i class="fa fa-file"></i></h3>
+<div class="box-tool">
+<a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+<a data-action="close" href="#"><i class="fa fa-times"></i></a>
+</div>
+</div>
+<div class="box-content">
+	@if(@$tutorial_data)
+	<form action="{{ url('/master/tutorial_update') }}" method="post" class="form-horizontal">
+	@else
+	<form action="{{ url('/master/create-tutorial') }}" method="post" class="form-horizontal">
+	@endif
+	
+	@csrf
+		<input type="hidden" name="tutorial_id" name="tutorial_id" value="{{ @$tutorial_data->tutorial_id }}" >
+		<div class="form-group">
+		<label class="col-sm-4 col-md-5 control-label">Tutorial Title</label>
+			<div class="col-sm-8 col-md-7 controls">
+			<input type="text" class="form-control" name="tutorial_title" value="{{ @$tutorial_data->tutorial_title }}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+		<label class="col-sm-4 col-md-5 control-label">Tutorial Link</label>
+			<div class="col-sm-8 col-md-7 controls">
+			<input type="text" class="form-control" name="tutorial_link" value="{{ @$tutorial_data->tutorial_link }}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-8 col-sm-offset-4 col-md-7 col-md-offset-5">
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<a href="{{ url('/master/dashboard') }}" class="btn">Cancel</a>
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+</div>
+<div class="col-md-3"></div>
+</div>
+
+@endsection
+
+@section('js')
+
+@endsection
